@@ -35,5 +35,10 @@ namespace SpaceRails.Game
 			scale.y = length * _settings.SegmentLength;
 			transform.localScale = scale;
 		}
+
+		private void OnCollisionEnter(Collision other)
+		{
+			Debug.Log($"Touched {other.gameObject.name}", other.gameObject);
+		}
 	}
 }
