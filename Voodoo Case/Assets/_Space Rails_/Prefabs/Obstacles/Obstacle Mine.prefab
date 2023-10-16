@@ -45,8 +45,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 1, y: 0.3, z: 1}
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!114 &7486683608823845701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ce098b866e74dc0aed03f6fd57c623c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _vfxPrefab: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+    type: 3}
 --- !u!1001 &7486683607577212146
 PrefabInstance:
   m_ObjectHideFlags: 0
