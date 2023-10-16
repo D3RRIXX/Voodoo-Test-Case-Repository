@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using Sirenix.OdinInspector;
+using SpaceRails.Infrastructure;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace SpaceRails.Game.Player
 {
@@ -23,13 +25,22 @@ namespace SpaceRails.Game.Player
 
         public IReadOnlyReactiveProperty<MovementType> MovementType => _movementType;
 
+        [Inject]
+        private void Construct(GameStateManager gameStateManager)
+        {
+            gameStateManager.CurrentState
+                            .First(x => x is GameState.Game)
+                            .Subscribe(_ => StartRunning())
+                            .AddTo(this);
+        }
+        
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _mainCamera = Camera.main;
         }
 
-        private void Start()
+        private void StartRunning()
         {
             _activeMovementRoutine = StartCoroutine(MoveForward());
         }
