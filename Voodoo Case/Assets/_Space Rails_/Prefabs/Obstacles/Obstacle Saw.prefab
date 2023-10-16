@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3050893061375587405}
   - component: {fileID: 3050893061375587393}
   m_Layer: 0
-  m_Name: Saw
+  m_Name: Obstacle Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

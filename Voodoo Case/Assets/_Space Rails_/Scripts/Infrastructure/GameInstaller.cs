@@ -14,6 +14,8 @@ namespace SpaceRails.Infrastructure
 		
 		public override void InstallBindings()
 		{
+			SignalBusInstaller.Install(Container);
+			
 			Container.BindInstance(_poleSettings);
 			Container.BindInstance(_lavaFloorSettings);
 			Container.BindInstance(_prefabContainer);

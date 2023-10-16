@@ -2,7 +2,7 @@
 
 namespace SpaceRails.Game.Obstacles
 {
-	[RequireComponent(typeof(Collider))]
+	[RequireComponent(typeof(Collider)), SelectionBase]
 	public abstract class Obstacle : MonoBehaviour
 	{
 		protected Collider Collider { get; private set; }

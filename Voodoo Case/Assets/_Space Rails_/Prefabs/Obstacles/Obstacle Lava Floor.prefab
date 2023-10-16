@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 3629694658029489516}
   - component: {fileID: 307044279167818918}
   m_Layer: 0
-  m_Name: Lava Floor
+  m_Name: Obstacle Lava Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

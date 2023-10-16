@@ -17,13 +17,13 @@ namespace SpaceRails.Game
         [SerializeField] private float _strafeSpeed = 5f;
         [SerializeField] private float _moveSpeed = 1f;
         [SerializeField] private float _speedModifierGain = 0.1f;
+        [ShowInInspector, ReadOnly] private MovementType _movementType;
     
         private Rigidbody _rb;
         private Camera _mainCamera;
         private Vector3 _touchStartScreenPos;
 
         private Coroutine _activeMovementRoutine;
-        [ShowInInspector, ReadOnly] private MovementType _movementType;
 
         private void Awake()
         {
