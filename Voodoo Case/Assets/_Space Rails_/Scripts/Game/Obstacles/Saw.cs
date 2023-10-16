@@ -7,14 +7,15 @@ namespace SpaceRails.Game.Obstacles
 	{
 		protected override void OnTouchedPlayer(Collision other)
 		{
-			var pole = other.gameObject.GetComponent<PlayerPoleHandler>().Pole;
+			var poleHandler = other.gameObject.GetComponent<PlayerPoleHandler>();
+			var pole = poleHandler.Pole;
 			Vector3 polePosition = pole.transform.position;
 			
 			ContactPoint contact = GetClosestContact(other, polePosition);
 			Vector3 delta = contact.point - polePosition;
 			float deltaLength = (pole.Length - Mathf.Abs(delta.x)) / 2;
 
-			pole.CutOff(deltaLength, delta);
+			poleHandler.CutOff(deltaLength, delta);
 
 			Collider.enabled = false;
 		}

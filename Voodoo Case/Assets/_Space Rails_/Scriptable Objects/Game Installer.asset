@@ -14,3 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poleSettings:
     SegmentLength: 0.25
+  _lavaFloorSettings:
+    DamageInterval: 0.1
+    DamageAmount: 0.1
+  _prefabContainer: {fileID: 0}

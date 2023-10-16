@@ -50,6 +50,7 @@ namespace SpaceRails.Game.Obstacles
 		private void StartDamagingPlayer(PlayerPoleHandler playerPoleHandler)
 		{
 			_damagePlayer = Observable.Interval(TimeSpan.FromSeconds(_settings.DamageInterval))
+			                          .StartWith(0)
 			                          .Subscribe(_ => playerPoleHandler.Pole.Length -= _settings.DamageAmount);
 		}
 

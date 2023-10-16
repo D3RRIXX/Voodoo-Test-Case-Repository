@@ -33,12 +33,6 @@ namespace SpaceRails.Game
 			Length += count * _settings.SegmentLength;
 		}
 
-		public void CutOff(float length, Vector3 deltaPos)
-		{
-			float newX = length * -Mathf.Sign(deltaPos.x);
-			Length -= length;
-			transform.localPosition = transform.localPosition.WithNewX(newX);
-		}
 
 		private void OnCollisionEnter(Collision other)
 		{
