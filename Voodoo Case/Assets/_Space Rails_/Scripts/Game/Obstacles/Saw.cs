@@ -7,7 +7,7 @@ namespace SpaceRails.Game.Obstacles
 	{
 		protected override void OnTouchedPlayer(Collision other)
 		{
-			var pole = other.gameObject.GetComponentInChildren<Pole>();
+			var pole = other.gameObject.GetComponent<PlayerPoleHandler>().Pole;
 			Vector3 polePosition = pole.transform.position;
 			
 			ContactPoint contact = GetClosestContact(other, polePosition);

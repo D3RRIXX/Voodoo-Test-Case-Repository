@@ -123,6 +123,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &390261016 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7082596446771478279, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 1357036418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +398,7 @@ GameObject:
   - component: {fileID: 1198319687}
   - component: {fileID: 1198319691}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Saw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,7 +475,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1198319685}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.77, y: 0.5, z: 8}
+  m_LocalPosition: {x: -1.89, y: 0.5, z: 8}
   m_LocalScale: {x: 0.31187, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -505,6 +511,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rail Pair_001
       objectReference: {fileID: 0}
+    - target: {fileID: 938928955464235711, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2175715870990323006, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+        type: 3}
+      propertyPath: _rails.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2175715870990323006, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+        type: 3}
+      propertyPath: _rails.Array.data[2]
+      value: 
+      objectReference: {fileID: 390261016}
     - target: {fileID: 7082596446771478279, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -567,6 +588,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e7a2cd8f00296d48b6c53aaae5882fa, type: 3}
+--- !u!4 &1383656446 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7082596446771478279, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 3046153319002035295}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1835378017
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,6 +604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835378019}
   - component: {fileID: 1835378018}
+  - component: {fileID: 1835378020}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -597,7 +625,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 1835378020}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -630,6 +659,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1835378020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835378017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8bd91c5e35e4ca290abde1b4a722e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &74375005675250884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -738,6 +779,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rail Pair
       objectReference: {fileID: 0}
+    - target: {fileID: 2175715870990323006, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+        type: 3}
+      propertyPath: _rails.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2175715870990323006, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
+        type: 3}
+      propertyPath: _rails.Array.data[2]
+      value: 
+      objectReference: {fileID: 1383656446}
     - target: {fileID: 7082596446771478279, guid: 0e7a2cd8f00296d48b6c53aaae5882fa,
         type: 3}
       propertyPath: m_LocalPosition.x

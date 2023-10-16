@@ -26,7 +26,6 @@ namespace SpaceRails.Game
 		private void Construct(Settings settings)
 		{
 			_settings = settings;
-			Debug.Log(Length);
 		}
 
 		public void AddSegments(int count)
