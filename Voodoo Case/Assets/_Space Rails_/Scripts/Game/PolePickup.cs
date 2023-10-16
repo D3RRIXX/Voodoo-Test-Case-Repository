@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceRails.Game
 {
-	public class PolePickup : MonoBehaviour, IPickup
+	public class PolePickup : PickupBase
 	{
 		[SerializeField, Min(1)] private int _poleGain;
 		[SerializeField] private Pole _pole;
@@ -18,10 +18,10 @@ namespace SpaceRails.Game
 			_pole.Length = _poleGain;
 		}
 
-		public void OnPickup(GameObject instigator)
+		public override void OnPickup(GameObject instigator)
 		{
 			instigator.GetComponent<PlayerPoleHandler>().Pole.AddSegments(_poleGain);
-			Destroy(gameObject);
+			base.OnPickup(instigator);
 		}
 	}
 }

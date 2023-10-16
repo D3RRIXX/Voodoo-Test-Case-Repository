@@ -17,10 +17,12 @@ namespace SpaceRails.Infrastructure
 		{
 			SignalBusInstaller.Install(Container);
 
-			Container.Bind<GameStateManager>().AsSingle();
 			Container.BindInstance(_poleSettings);
 			Container.BindInstance(_lavaFloorSettings);
 			Container.BindInstance(_prefabContainer);
+			
+			Container.Bind<GameStateManager>().AsSingle();
+			Container.Bind<CurrencyManager>().AsSingle();
 		}
 	}
 }

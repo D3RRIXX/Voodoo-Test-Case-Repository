@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DG.Tweening;
 using SpaceRails.Game.Signals;
+using SpaceRails.Infrastructure;
 using SpaceRails.Utilities;
 using UnityEngine;
 using Zenject;
@@ -21,13 +22,15 @@ namespace SpaceRails.Game.Player
 		private Sequence _sequence;
 		private PlayerMovement _playerMovement;
 		private SignalBus _signalBus;
+		private GameStateManager _gameStateManager;
 
 		public Pole Pole => _pole;
 		public bool IsInvincible { get; private set; }
 
 		[Inject]
-		private void Construct(SignalBus signalBus)
+		private void Construct(SignalBus signalBus, GameStateManager gameStateManager)
 		{
+			_gameStateManager = gameStateManager;
 			_signalBus = signalBus;
 		}
 		
@@ -41,12 +44,13 @@ namespace SpaceRails.Game.Player
 			if (_lostPole)
 				return;
 			
-			Debug.Log("Lost pole!");
 			_lostPole = true;
+			_playerMovement.ChangeMovementType(MovementType.FreeFall);
+
 			Pole.transform.SetParent(null);
 			Pole.gameObject.AddComponent<Rigidbody>();
 
-			_playerMovement.ChangeMovementType(MovementType.FreeFall);
+			DOVirtual.DelayedCall(1f, () => _gameStateManager.CurrentState.Value = GameState.LevelFailed);
 		}
 		
 		public void CutOff(float length, Vector3 deltaPos)

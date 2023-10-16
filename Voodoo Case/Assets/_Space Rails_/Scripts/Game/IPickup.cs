@@ -6,4 +6,13 @@ namespace SpaceRails.Game
 	{
 		void OnPickup(GameObject instigator);
 	}
+
+	[RequireComponent(typeof(Collider))]
+	public abstract class PickupBase : MonoBehaviour, IPickup
+	{
+		public virtual void OnPickup(GameObject instigator)
+		{
+			Destroy(gameObject);
+		}
+	}
 }
