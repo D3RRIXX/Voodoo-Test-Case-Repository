@@ -3,7 +3,7 @@ using SpaceRails.Utilities;
 using UnityEngine;
 using Zenject;
 
-namespace SpaceRails.Game
+namespace SpaceRails.Game.Player
 {
 	public class Pole : MonoBehaviour
 	{

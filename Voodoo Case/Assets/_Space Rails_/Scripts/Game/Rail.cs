@@ -1,4 +1,5 @@
 ﻿using SpaceRails.Game.Obstacles;
+using SpaceRails.Game.Player;
 using UniRx;
 using UnityEngine;
 

@@ -1,5 +1,6 @@
 ﻿using SpaceRails.Game;
 using SpaceRails.Game.Obstacles;
+using SpaceRails.Game.Player;
 using UnityEngine;
 using Zenject;
 

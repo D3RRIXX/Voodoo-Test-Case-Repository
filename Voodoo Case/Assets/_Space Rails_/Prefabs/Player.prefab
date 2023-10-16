@@ -393,6 +393,18 @@ MonoBehaviour:
   _originalMaterial: {fileID: 2100000, guid: 2d1180fded9d52b4cbcb3066ce5c0cf8, type: 2}
   _transparentMaterial: {fileID: 2100000, guid: 61a0d6169999f0b4599cb3a97309bff4,
     type: 2}
+--- !u!114 &3624396496090983126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4897499075404393319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68ebf74021e04e118f8b0d9eea26c60d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5241268414990266845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1d78607769d52804ebcf22480781bd15,

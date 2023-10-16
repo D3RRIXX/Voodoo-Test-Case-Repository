@@ -1,4 +1,5 @@
-﻿using SpaceRails.Utilities;
+﻿using SpaceRails.Game.Player;
+using SpaceRails.Utilities;
 using UnityEngine;
 
 namespace SpaceRails.Game.Obstacles

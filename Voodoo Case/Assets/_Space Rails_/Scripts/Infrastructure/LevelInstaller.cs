@@ -1,4 +1,5 @@
 ﻿using SpaceRails.Game;
+using SpaceRails.Game.Player;
 using SpaceRails.Game.Signals;
 using UnityEngine;
 using Zenject;

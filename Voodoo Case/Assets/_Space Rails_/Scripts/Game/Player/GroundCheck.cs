@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using SpaceRails.Game.Player;
+using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace SpaceRails.Game
 		private void Awake()
 		{
 			this.FixedUpdateAsObservable()
-			    .Where(_ => Physics.CheckSphere(transform.position, _checkRadius, _groundMask))
+			    .Where(_ => Physics.CheckSphere(transform.position + transform.forward, _checkRadius, _groundMask))
 			    .Subscribe(_ => _playerMovement.ChangeMovementType(MovementType.OnFoot))
 			    .AddTo(this);
 		}

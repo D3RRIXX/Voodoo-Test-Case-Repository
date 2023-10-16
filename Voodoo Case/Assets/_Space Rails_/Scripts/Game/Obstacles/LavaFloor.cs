@@ -1,4 +1,5 @@
 ﻿using System;
+using SpaceRails.Game.Player;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;

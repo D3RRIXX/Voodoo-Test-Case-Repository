@@ -1,29 +1,27 @@
 using System;
 using System.Collections;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
-namespace SpaceRails.Game
+namespace SpaceRails.Game.Player
 {
-    public enum MovementType
-    {
-        OnFoot,
-        Rails,
-        FreeFall
-    }
+    public class MovementTypeReactiveProperty : ReactiveProperty<MovementType> {}
     
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private float _strafeSpeed = 5f;
         [SerializeField] private float _moveSpeed = 1f;
         [SerializeField] private float _speedModifierGain = 0.1f;
-        [ShowInInspector, ReadOnly] private MovementType _movementType;
+        [ShowInInspector, ReadOnly] private MovementTypeReactiveProperty _movementType = new();
     
         private Rigidbody _rb;
         private Camera _mainCamera;
         private Vector3 _touchStartScreenPos;
 
         private Coroutine _activeMovementRoutine;
+
+        public IReadOnlyReactiveProperty<MovementType> MovementType => _movementType;
 
         private void Awake()
         {
@@ -44,17 +42,17 @@ namespace SpaceRails.Game
 
         public void ChangeMovementType(MovementType movementType)
         {
-            if (_movementType == movementType)
+            if (_movementType.Value == movementType)
                 return;
             
-            _movementType = movementType;
+            _movementType.Value = movementType;
             StopCoroutine(_activeMovementRoutine);
 
             _activeMovementRoutine = movementType switch
             {
-                MovementType.OnFoot => StartCoroutine(MoveForward()),
-                MovementType.Rails => StartCoroutine(GrindOnRails()),
-                MovementType.FreeFall => null,
+                Player.MovementType.OnFoot => StartCoroutine(MoveForward()),
+                Player.MovementType.Rails => StartCoroutine(GrindOnRails()),
+                Player.MovementType.FreeFall => null,
                 _ => throw new ArgumentOutOfRangeException(nameof(movementType), movementType, null)
             };
         }

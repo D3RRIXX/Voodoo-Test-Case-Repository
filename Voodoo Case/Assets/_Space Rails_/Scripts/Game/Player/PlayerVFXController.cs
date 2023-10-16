@@ -1,12 +1,10 @@
 ﻿using DG.Tweening;
-using DG.Tweening.Core;
-using DG.Tweening.Plugins.Options;
 using SpaceRails.Game.Signals;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
-namespace SpaceRails.Game
+namespace SpaceRails.Game.Player
 {
 	public class PlayerVFXController : MonoBehaviour
 	{
