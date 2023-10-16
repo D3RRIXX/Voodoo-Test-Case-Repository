@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using SpaceRails.Utilities;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace SpaceRails.Game
 {
 	public class Pole : MonoBehaviour
 	{
-		[System.Serializable]
+		[Serializable]
 		public class Settings
 		{
 			[Min(0f)] public float SegmentLength = 0.5f;
@@ -17,23 +18,27 @@ namespace SpaceRails.Game
 
 		public float Length
 		{
-			get => GetLength();
-			set => SetLength(Mathf.Min(value, _maxLength));
+			get => transform.localScale.y;
+			set => transform.localScale = transform.localScale.WithNewY(value);
 		}
 
 		[Inject]
 		private void Construct(Settings settings)
 		{
 			_settings = settings;
+			Debug.Log(Length);
 		}
 
-		private float GetLength() => transform.localScale.y / _settings.SegmentLength;
-
-		private void SetLength(float length)
+		public void AddSegments(int count)
 		{
-			var scale = transform.localScale;
-			scale.y = length * _settings.SegmentLength;
-			transform.localScale = scale;
+			Length += count * _settings.SegmentLength;
+		}
+
+		public void CutOff(float length, Vector3 deltaPos)
+		{
+			float newX = length * -Mathf.Sign(deltaPos.x);
+			Length -= length;
+			transform.localPosition = transform.localPosition.WithNewX(newX);
 		}
 
 		private void OnCollisionEnter(Collision other)

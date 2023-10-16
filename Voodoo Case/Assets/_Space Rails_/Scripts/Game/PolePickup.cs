@@ -19,7 +19,7 @@ namespace SpaceRails.Game
 
 		public void OnPickup(GameObject instigator)
 		{
-			instigator.GetComponent<PlayerPoleHandler>().Pole.Length += _poleGain;
+			instigator.GetComponent<PlayerPoleHandler>().Pole.AddSegments(_poleGain);
 			Destroy(gameObject);
 		}
 	}
