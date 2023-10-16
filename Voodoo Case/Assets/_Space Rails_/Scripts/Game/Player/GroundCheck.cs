@@ -1,7 +1,9 @@
 ﻿using SpaceRails.Game.Player;
+using SpaceRails.Infrastructure;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
+using Zenject;
 
 namespace SpaceRails.Game
 {
@@ -17,7 +19,7 @@ namespace SpaceRails.Game
 			_groundMask = LayerMask.GetMask("Ground");
 		}
 
-		private void Awake()
+		private void Start()
 		{
 			this.FixedUpdateAsObservable()
 			    .Where(_ => Physics.CheckSphere(transform.position + transform.forward, _checkRadius, _groundMask))

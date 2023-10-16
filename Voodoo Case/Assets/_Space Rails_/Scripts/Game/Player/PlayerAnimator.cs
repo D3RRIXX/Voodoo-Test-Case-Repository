@@ -1,6 +1,8 @@
 ﻿using System;
+using SpaceRails.Infrastructure;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace SpaceRails.Game.Player
 {
@@ -12,7 +14,17 @@ namespace SpaceRails.Game.Player
 		
 		private static readonly int HANGING = Animator.StringToHash("Hanging");
 		private static readonly Vector3 HANGING_OFFSET = new Vector3(0f, -0.65f, 0f);
+		private static readonly int START = Animator.StringToHash("Start");
 
+		[Inject]
+		private void Construct(GameStateManager gameStateManager)
+		{
+			gameStateManager.CurrentState
+			                .First(x => x is GameState.Game)
+			                .Subscribe(_ => _animator.SetTrigger(START))
+			                .AddTo(this);
+		}
+		
 		private void Awake()
 		{
 			_animator = GetComponent<Animator>();
@@ -34,8 +46,6 @@ namespace SpaceRails.Game.Player
 					break;
 				case MovementType.FreeFall:
 					break;
-				default:
-					throw new ArgumentOutOfRangeException(nameof(movementType), movementType, null);
 			}
 		}
 	}
