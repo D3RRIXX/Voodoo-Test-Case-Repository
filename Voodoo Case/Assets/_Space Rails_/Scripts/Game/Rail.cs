@@ -13,6 +13,7 @@ namespace SpaceRails.Game
 			if (!other.gameObject.CompareTag("Player"))
 				return;
 			
+			other.gameObject.GetComponent<PlayerMovement>().ChangeMovementType(MovementType.Rails);
 			TouchingPlayer.Value = true;
 		}
 		
