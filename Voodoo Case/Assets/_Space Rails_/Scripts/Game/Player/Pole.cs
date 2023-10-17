@@ -16,11 +16,13 @@ namespace SpaceRails.Game.Player
 		[SerializeField] private int _maxLength = 10;
 		private Settings _settings;
 
-		public float Length
+		public virtual float Length
 		{
 			get => transform.localScale.y;
 			set => transform.localScale = transform.localScale.WithNewY(value);
 		}
+		
+		public int Segments => Mathf.RoundToInt(Length / _settings.SegmentLength);
 
 		[Inject]
 		private void Construct(Settings settings)
@@ -32,7 +34,6 @@ namespace SpaceRails.Game.Player
 		{
 			Length += count * _settings.SegmentLength;
 		}
-
 
 		private void OnCollisionEnter(Collision other)
 		{

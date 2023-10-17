@@ -17,6 +17,8 @@ namespace SpaceRails.Infrastructure
 		{
 			SignalBusInstaller.Install(Container);
 
+			Container.DeclareSignal<PlayerPoleLengthChangedSignal>();
+
 			Container.BindInstance(_poleSettings);
 			Container.BindInstance(_lavaFloorSettings);
 			Container.BindInstance(_prefabContainer);
