@@ -15,7 +15,7 @@ namespace SpaceRails.Game
 
 		private void Start()
 		{
-			_pole.Length = _poleGain;
+			_pole.Segments = _poleGain;
 		}
 
 		public override void OnPickup(GameObject instigator)

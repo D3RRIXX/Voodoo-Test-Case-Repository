@@ -15,16 +15,28 @@ namespace SpaceRails.Game.Player
 		private static readonly int HANGING = Animator.StringToHash("Hanging");
 		private static readonly Vector3 HANGING_OFFSET = new Vector3(0f, -0.65f, 0f);
 		private static readonly int START = Animator.StringToHash("Start");
+		private static readonly int DEFEAT = Animator.StringToHash("Defeat");
 
 		[Inject]
 		private void Construct(GameStateManager gameStateManager)
 		{
 			gameStateManager.CurrentState
-			                .First(x => x is GameState.Game)
-			                .Subscribe(_ => _animator.SetTrigger(START))
+			                .Subscribe(OnGameStateChanged)
 			                .AddTo(this);
 		}
-		
+
+		private void OnGameStateChanged(GameState gameState)
+		{
+			switch (gameState)
+			{
+				case GameState.Game:
+					_animator.SetTrigger(START);
+					break;
+				case GameState.LevelFailed:
+					_animator.SetTrigger(DEFEAT);
+					break;
+			}
+		}
 		private void Awake()
 		{
 			_animator = GetComponent<Animator>();

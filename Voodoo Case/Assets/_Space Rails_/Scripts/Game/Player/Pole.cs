@@ -13,16 +13,19 @@ namespace SpaceRails.Game.Player
 			[Min(0f)] public float SegmentLength = 0.5f;
 		}
 
-		[SerializeField] private int _maxLength = 10;
 		private Settings _settings;
 
 		public virtual float Length
 		{
 			get => transform.localScale.y;
-			set => transform.localScale = transform.localScale.WithNewY(value);
+			set => transform.localScale = transform.localScale.WithNewY(Mathf.Max(value, 0f));
 		}
 		
-		public int Segments => Mathf.RoundToInt(Length / _settings.SegmentLength);
+		public int Segments
+		{
+			get => Mathf.RoundToInt(Length / _settings.SegmentLength);
+			set => Length = Mathf.Max(0, value) * _settings.SegmentLength;
+		}
 
 		[Inject]
 		private void Construct(Settings settings)

@@ -4,6 +4,7 @@ using DG.Tweening;
 using SpaceRails.Game.Signals;
 using SpaceRails.Infrastructure;
 using SpaceRails.Utilities;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -23,6 +24,7 @@ namespace SpaceRails.Game.Player
 		private PlayerMovement _playerMovement;
 		private SignalBus _signalBus;
 		private GameStateManager _gameStateManager;
+		private Tween _tween;
 
 		public Pole Pole => _pole;
 		public bool IsInvincible { get; private set; }
@@ -37,6 +39,11 @@ namespace SpaceRails.Game.Player
 		private void Awake()
 		{
 			_playerMovement = GetComponent<PlayerMovement>();
+
+			_signalBus.GetStream<PlayerPoleLengthChangedSignal>()
+			         .Where(x => x.Pole.Length <= 0f)
+			         .Subscribe(_ => LoseLevel())
+			         .AddTo(this);
 		}
 
 		public void LosePole()
@@ -50,9 +57,14 @@ namespace SpaceRails.Game.Player
 			Pole.transform.SetParent(null);
 			Pole.gameObject.AddComponent<Rigidbody>();
 
-			DOVirtual.DelayedCall(1f, () => _gameStateManager.CurrentState.Value = GameState.LevelFailed);
+			_tween = DOVirtual.DelayedCall(1f, LoseLevel);
 		}
-		
+
+		private void LoseLevel()
+		{
+			_gameStateManager.CurrentState.Value = GameState.LevelFailed;
+		}
+
 		public void CutOff(float length, Vector3 deltaPos)
 		{
 			_sequence.Kill();

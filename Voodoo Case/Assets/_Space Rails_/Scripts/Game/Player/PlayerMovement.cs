@@ -2,114 +2,134 @@ using System;
 using System.Collections;
 using Sirenix.OdinInspector;
 using SpaceRails.Infrastructure;
+using SpaceRails.Utilities;
 using UniRx;
 using UnityEngine;
 using Zenject;
 
 namespace SpaceRails.Game.Player
 {
-    public class MovementTypeReactiveProperty : ReactiveProperty<MovementType> {}
-    
-    public class PlayerMovement : MonoBehaviour
-    {
-        [SerializeField] private float _strafeSpeed = 5f;
-        [SerializeField] private float _moveSpeed = 1f;
-        [SerializeField] private float _speedModifierGain = 0.1f;
-        [ShowInInspector, ReadOnly] private MovementTypeReactiveProperty _movementType = new();
-    
-        private Rigidbody _rb;
-        private Camera _mainCamera;
-        private Vector3 _touchStartScreenPos;
+	public class MovementTypeReactiveProperty : ReactiveProperty<MovementType> { }
 
-        private Coroutine _activeMovementRoutine;
+	public class PlayerMovement : MonoBehaviour
+	{
+		[SerializeField] private float _strafeSpeed = 5f;
+		[SerializeField] private float _moveSpeed = 1f;
+		[SerializeField] private float _speedModifierGain = 0.1f;
+		[ShowInInspector, ReadOnly] private MovementTypeReactiveProperty _movementType = new();
 
-        public IReadOnlyReactiveProperty<MovementType> MovementType => _movementType;
+		private Rigidbody _rb;
+		private Camera _mainCamera;
+		private Vector3 _touchStartScreenPos;
 
-        [Inject]
-        private void Construct(GameStateManager gameStateManager)
-        {
-            gameStateManager.CurrentState
-                            .First(x => x is GameState.Game)
-                            .Subscribe(_ => StartRunning())
-                            .AddTo(this);
-        }
-        
-        private void Awake()
-        {
-            _rb = GetComponent<Rigidbody>();
-            _mainCamera = Camera.main;
-        }
+		private Coroutine _activeMovementRoutine;
 
-        private void StartRunning()
-        {
-            _activeMovementRoutine = StartCoroutine(MoveForward());
-        }
+		public IReadOnlyReactiveProperty<MovementType> MovementType => _movementType;
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-                _touchStartScreenPos = Input.mousePosition;
-        }
+		[Inject]
+		private void Construct(GameStateManager gameStateManager)
+		{
+			gameStateManager.CurrentState
+			                .Subscribe(OnGameStateChanged)
+			                .AddTo(this);
+		}
 
-        public void ChangeMovementType(MovementType movementType)
-        {
-            if (_movementType.Value == movementType)
-                return;
-            
-            _movementType.Value = movementType;
-            StopCoroutine(_activeMovementRoutine);
+		private void Awake()
+		{
+			_rb = GetComponent<Rigidbody>();
+			_mainCamera = Camera.main;
+		}
 
-            _activeMovementRoutine = movementType switch
-            {
-                Player.MovementType.OnFoot => StartCoroutine(MoveForward()),
-                Player.MovementType.Rails => StartCoroutine(GrindOnRails()),
-                Player.MovementType.FreeFall => null,
-                _ => throw new ArgumentOutOfRangeException(nameof(movementType), movementType, null)
-            };
-        }
+		private void Update()
+		{
+			if (Input.GetMouseButtonDown(0))
+				_touchStartScreenPos = Input.mousePosition;
+		}
 
-        private IEnumerator MoveForward()
-        {
-            while (true)
-            {
-                _rb.velocity = new Vector3(GetVelocityX(), _rb.velocity.y, _moveSpeed);
-                yield return null;
-            }
-        }
+		private void OnTriggerEnter(Collider other)
+		{
+			if (other.TryGetComponent(out IPickup pickup))
+				pickup.OnPickup(gameObject);
+		}
 
-        private IEnumerator GrindOnRails()
-        {
-            float speedModifier = 1f;
-            while (true)
-            {
-                _rb.velocity = new Vector3(GetVelocityX(), _rb.velocity.y, _moveSpeed * speedModifier);
-                speedModifier += _speedModifierGain * Time.deltaTime;
+		private void OnGameStateChanged(GameState gameState)
+		{
+			switch (gameState)
+			{
+				case GameState.Game:
+					StartRunning();
+					break;
+				case GameState.LevelFailed:
+				case GameState.LevelComplete:
+					StopRunning();
+					break;
+			}
+		}
 
-                yield return null;
-            }
-        }
+		private void StartRunning()
+		{
+			_activeMovementRoutine = StartCoroutine(MoveForward());
+		}
 
-        private float GetVelocityX()
-        {
-            if (!Input.GetMouseButton(0))
-                return 0f;
-        
-            Vector3 touchStartPosWorld = GetMousePosInWorldSpace(_touchStartScreenPos);
-            Vector3 touchPosWorld = GetMousePosInWorldSpace(Input.mousePosition);
+		private void StopRunning()
+		{
+			StopCoroutine(_activeMovementRoutine);
+			_rb.velocity = Vector3.zero.WithNewY(_rb.velocity.y);
+		}
 
-            var targetPosition = new Vector3(touchPosWorld.x, transform.position.y, transform.position.z);
+		public void ChangeMovementType(MovementType movementType)
+		{
+			if (_movementType.Value == movementType)
+				return;
 
-            Vector3 moveDirection = targetPosition - touchStartPosWorld;
+			_movementType.Value = movementType;
+			StopCoroutine(_activeMovementRoutine);
 
-            return moveDirection.x * _strafeSpeed;
-        }
+			_activeMovementRoutine = movementType switch
+			{
+				Player.MovementType.OnFoot => StartCoroutine(MoveForward()),
+				Player.MovementType.Rails => StartCoroutine(GrindOnRails()),
+				Player.MovementType.FreeFall => null,
+				_ => throw new ArgumentOutOfRangeException(nameof(movementType), movementType, null)
+			};
+		}
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.TryGetComponent(out IPickup pickup))
-                pickup.OnPickup(gameObject);
-        }
+		private IEnumerator MoveForward()
+		{
+			while (true)
+			{
+				_rb.velocity = new Vector3(GetVelocityX(), _rb.velocity.y, _moveSpeed);
+				yield return null;
+			}
+		}
 
-        private Vector3 GetMousePosInWorldSpace(Vector3 mousePosition) => _mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, 0, _mainCamera.transform.position.y));
-    }
+		private IEnumerator GrindOnRails()
+		{
+			float speedModifier = 1f;
+			while (true)
+			{
+				_rb.velocity = new Vector3(GetVelocityX(), _rb.velocity.y, _moveSpeed * speedModifier);
+				speedModifier += _speedModifierGain * Time.deltaTime;
+
+				yield return null;
+			}
+		}
+
+		private float GetVelocityX()
+		{
+			if (!Input.GetMouseButton(0))
+				return 0f;
+
+			Vector3 touchStartPosWorld = GetMousePosInWorldSpace(_touchStartScreenPos);
+			Vector3 touchPosWorld = GetMousePosInWorldSpace(Input.mousePosition);
+
+			var targetPosition = new Vector3(touchPosWorld.x, transform.position.y, transform.position.z);
+
+			Vector3 moveDirection = targetPosition - touchStartPosWorld;
+
+			return moveDirection.x * _strafeSpeed;
+		}
+
+		private Vector3 GetMousePosInWorldSpace(Vector3 mousePosition) => _mainCamera.ScreenToWorldPoint(new Vector3(mousePosition.x, 0, _mainCamera.transform.position.y));
+	}
 }
