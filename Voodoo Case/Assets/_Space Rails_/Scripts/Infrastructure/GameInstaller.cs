@@ -11,7 +11,6 @@ namespace SpaceRails.Infrastructure
 	{
 		[SerializeField] private Pole.Settings _poleSettings;
 		[SerializeField] private LavaFloor.Settings _lavaFloorSettings;
-		[SerializeField] private PrefabContainer _prefabContainer;
 		
 		public override void InstallBindings()
 		{
@@ -21,7 +20,6 @@ namespace SpaceRails.Infrastructure
 
 			Container.BindInstance(_poleSettings);
 			Container.BindInstance(_lavaFloorSettings);
-			Container.BindInstance(_prefabContainer);
 			
 			Container.Bind<GameStateManager>().AsSingle();
 			Container.Bind<CurrencyManager>().AsSingle();

@@ -46,7 +46,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.60526675, y: 1.2150983, z: 2.0754914}
-  m_Center: {x: 0, y: 0.10754913, z: -0.0046761036}
+  m_Center: {x: 0, y: 0.7, z: -0.0046761036}
 --- !u!114 &3050893061375587393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ebff962cd47b9a3236a4973706f18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _explosionVfxPrefab: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312,
+    type: 3}
 --- !u!1001 &3929518041707754878
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99,7 +101,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 919978f3a14652e4280955a684470a08,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 919978f3a14652e4280955a684470a08,
         type: 3}

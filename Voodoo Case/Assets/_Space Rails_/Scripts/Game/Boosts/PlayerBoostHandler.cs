@@ -19,18 +19,6 @@ namespace SpaceRails.Game.Boosts
 
 		public bool HasBoost(BoostType boostType, out BoostRunner boostRunner) => _activeBoosts.TryGetValue(boostType, out boostRunner);
 		public bool HasBoost(BoostType boostType) => _activeBoosts.TryGetValue(boostType, out _);
-		
-		public void AddBoost(BoostType boostType, float duration)
-		{
-			if (HasBoost(boostType, out BoostRunner boostRunner))
-			{
-				boostRunner.RemainingTime.Value = duration;
-				return;
-			}
-			
-			IBoost boost = _container.ResolveId<IBoost.Factory>(boostType).Create();
-			_activeBoosts.Add(boostType, new BoostRunner(boostType, boost, duration));
-		}
 
 		public void Tick()
 		{
@@ -45,6 +33,24 @@ namespace SpaceRails.Game.Boosts
 			DisposeExpiredBoosts();
 		}
 
+		public void AddBoost(BoostType boostType, float duration)
+		{
+			if (HasBoost(boostType, out BoostRunner boostRunner))
+			{
+				boostRunner.RemainingTime.Value = duration;
+				return;
+			}
+			
+			IBoost boost = _container.ResolveId<IBoost.Factory>(boostType).Create();
+			_activeBoosts.Add(boostType, new BoostRunner(boostType, boost, duration));
+		}
+
+		public void RemoveBoost(BoostType boostType)
+		{
+			_activeBoosts[boostType].Dispose();
+			_activeBoosts.Remove(boostType);
+		}
+
 		private void DisposeExpiredBoosts()
 		{
 			if (_expiredBoosts.Count == 0)
@@ -52,8 +58,7 @@ namespace SpaceRails.Game.Boosts
 
 			foreach (BoostType boostType in _expiredBoosts)
 			{
-				_activeBoosts[boostType].Dispose();
-				_activeBoosts.Remove(boostType);
+				RemoveBoost(boostType);
 			}
 			
 			_expiredBoosts.Clear();

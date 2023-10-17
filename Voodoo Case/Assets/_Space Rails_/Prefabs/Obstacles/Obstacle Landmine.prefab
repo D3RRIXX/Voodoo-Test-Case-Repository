@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7486683608823845699}
   - component: {fileID: 7486683608823845701}
   m_Layer: 0
-  m_Name: Obstacle Mine
+  m_Name: Obstacle Landmine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

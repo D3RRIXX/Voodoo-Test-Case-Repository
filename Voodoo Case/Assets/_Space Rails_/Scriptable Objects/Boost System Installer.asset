@@ -15,3 +15,8 @@ MonoBehaviour:
   _magnetSettings:
     Radius: 10
     MagnetPower: 10
+  _ironPoleSettings:
+    MetalMaterial: {fileID: 2100000, guid: 6c9a1fed39b98474e8d79f73f85da25d, type: 2}
+  _shieldSettings:
+    GfxPrefab: {fileID: 843793153094472765, guid: bdc3136ec4d00774686a210e9b863777,
+      type: 3}

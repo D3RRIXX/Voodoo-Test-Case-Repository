@@ -8,13 +8,19 @@ namespace SpaceRails.Game.Boosts
 	public class BoostSystemInstaller : ScriptableObjectInstaller
 	{
 		[SerializeField] private MagnetBoost.Settings _magnetSettings;
+		[SerializeField] private IronPoleBoost.Settings _ironPoleSettings;
+		[SerializeField] private ShieldBoost.Settings _shieldSettings;
 		
 		public override void InstallBindings()
 		{
 			Container.BindInstance(_magnetSettings);
+			Container.BindInstance(_ironPoleSettings);
+			Container.BindInstance(_shieldSettings);
 
 			BindBoostFactory<MagnetBoost>(BoostType.Magnet);
 			BindBoostFactory<LavaBootsBoost>(BoostType.LavaBoots);
+			BindBoostFactory<IronPoleBoost>(BoostType.IronPole);
+			BindBoostFactory<ShieldBoost>(BoostType.Shield);
 			
 			Container.BindInterfacesAndSelfTo<PlayerBoostHandler>().AsSingle();
 		}
