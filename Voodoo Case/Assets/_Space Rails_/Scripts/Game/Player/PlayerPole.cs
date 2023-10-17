@@ -19,7 +19,6 @@ namespace SpaceRails.Game.Player
 			set
 			{
 				base.Length = value;
-				Debug.Log(value);
 				OnLengthChanged();
 			}
 		}

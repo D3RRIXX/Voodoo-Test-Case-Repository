@@ -1,4 +1,5 @@
 ﻿using System;
+using SpaceRails.Game.Boosts;
 using SpaceRails.Game.Player;
 using UniRx;
 using UniRx.Triggers;
@@ -18,10 +19,12 @@ namespace SpaceRails.Game.Obstacles
 
 		private Settings _settings;
 		private IDisposable _damagePlayer;
+		private PlayerBoostHandler _playerBoostHandler;
 
 		[Inject]
-		private void Construct(Settings settings)
+		private void Construct(Settings settings, PlayerBoostHandler playerBoostHandler)
 		{
+			_playerBoostHandler = playerBoostHandler;
 			_settings = settings;
 		}
 		
@@ -52,6 +55,7 @@ namespace SpaceRails.Game.Obstacles
 		{
 			_damagePlayer = Observable.Interval(TimeSpan.FromSeconds(_settings.DamageInterval))
 			                          .StartWith(0)
+			                          .Where(_ => !_playerBoostHandler.HasBoost(BoostType.LavaBoots))
 			                          .Subscribe(_ => playerPoleHandler.Pole.Length -= _settings.DamageAmount);
 		}
 

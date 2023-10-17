@@ -6,7 +6,7 @@ using Zenject;
 
 namespace SpaceRails.Infrastructure
 {
-	[CreateAssetMenu(fileName = "Game Installer", menuName = "Space Rails/Game Installer", order = -100)]
+	[CreateAssetMenu(fileName = "Game Installer", menuName = SOPaths.INSTALLERS + "Game Installer", order = -100)]
 	public class GameInstaller : ScriptableObjectInstaller
 	{
 		[SerializeField] private Pole.Settings _poleSettings;

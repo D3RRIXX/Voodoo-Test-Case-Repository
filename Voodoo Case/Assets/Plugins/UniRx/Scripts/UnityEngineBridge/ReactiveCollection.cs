@@ -266,7 +266,7 @@ namespace UniRx
         public IObservable<CollectionRemoveEvent<T>> ObserveRemove()
         {
             if (isDisposed) return Observable.Empty<CollectionRemoveEvent<T>>();
-            return collectionRemove ?? (collectionRemove = new Subject<CollectionRemoveEvent<T>>());
+            return collectionRemove ??= new Subject<CollectionRemoveEvent<T>>();
         }
 
         [NonSerialized]
@@ -274,7 +274,7 @@ namespace UniRx
         public IObservable<CollectionReplaceEvent<T>> ObserveReplace()
         {
             if (isDisposed) return Observable.Empty<CollectionReplaceEvent<T>>();
-            return collectionReplace ?? (collectionReplace = new Subject<CollectionReplaceEvent<T>>());
+            return collectionReplace ??= new Subject<CollectionReplaceEvent<T>>();
         }
 
         void DisposeSubject<TSubject>(ref Subject<TSubject> subject)
