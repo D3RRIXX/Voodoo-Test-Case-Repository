@@ -1,4 +1,5 @@
-﻿using SpaceRails.Game.Boosts;
+﻿using System.Collections.Generic;
+using SpaceRails.Game.Boosts;
 using SpaceRails.Game.Player;
 using TMPro;
 using UniRx;
@@ -10,10 +11,15 @@ namespace SpaceRails.UI
 	public class HUD : MonoBehaviour
 	{
 		[SerializeField] private TextMeshProUGUI _poleLengthLabel;
+		[SerializeField] private Transform _boostCellContainer;
+		
+		private BoostDisplayCell.Factory _boostCellFactory;
+		private Dictionary<BoostType, BoostDisplayCell> _displayCells = new();
 
 		[Inject]
-		private void Construct(SignalBus signalBus, PlayerPoleHandler poleHandler, PlayerBoostHandler playerBoostHandler)
+		private void Construct(SignalBus signalBus, PlayerPoleHandler poleHandler, PlayerBoostHandler playerBoostHandler, BoostDisplayCell.Factory boostCellFactory)
 		{
+			_boostCellFactory = boostCellFactory;
 			SetPoleLengthText(poleHandler.Pole.Segments);
 
 			var disposables = new CompositeDisposable();
@@ -45,11 +51,18 @@ namespace SpaceRails.UI
 		private void OnBoostAdded(BoostRunner boostRunner)
 		{
 			Debug.Log($"Added boost: {boostRunner.BoostType}");
+			BoostDisplayCell boostDisplayCell = _boostCellFactory.Create(boostRunner);
+			boostDisplayCell.transform.SetParent(_boostCellContainer, false);
+			
+			_displayCells.Add(boostRunner.BoostType, boostDisplayCell);
 		}
 
 		private void OnBoostRemoved(BoostRunner boostRunner)
 		{
 			Debug.Log($"Removed boost: {boostRunner.BoostType}");
+			
+			Destroy(_displayCells[boostRunner.BoostType].gameObject);
+			_displayCells.Remove(boostRunner.BoostType);
 		}
 	}
 }

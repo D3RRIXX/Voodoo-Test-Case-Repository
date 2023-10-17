@@ -52,7 +52,7 @@ namespace SpaceRails.Game.Boosts
 
 			foreach (BoostType boostType in _expiredBoosts)
 			{
-				_activeBoosts.Dispose();
+				_activeBoosts[boostType].Dispose();
 				_activeBoosts.Remove(boostType);
 			}
 			

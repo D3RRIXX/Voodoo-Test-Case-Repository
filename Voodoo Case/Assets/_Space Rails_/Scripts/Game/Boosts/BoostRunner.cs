@@ -16,9 +16,11 @@ namespace SpaceRails.Game.Boosts
 			_boost.Apply();
 			
 			BoostType = boostType;
+			Duration = duration;
 		}
 
 		public BoostType BoostType { get; }
+		public float Duration { get; }
 		public ReactiveProperty<float> RemainingTime { get; }
 
 		public void Tick()

@@ -1037,6 +1037,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 757574128473342261, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757574128473342261, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757574128473342261, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757574128473342261, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 757574128473342261, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2837336562383720968, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5388111464057595832, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1146,6 +1176,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048158631988870623, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6048158631988870623, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7475224834076045091, guid: 88e2f041abc5a4a4a8f6105cb3626e39,
+        type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88e2f041abc5a4a4a8f6105cb3626e39, type: 3}
