@@ -1,19 +1,22 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace SpaceRails.UI
 {
 	public class LoseScreen : MonoBehaviour
 	{
-		public void Revive()
-		{
-			throw new NotImplementedException();
-		}
+		private ZenjectSceneLoader _zenjectSceneLoader;
 
+		[Inject]
+		private void Construct(ZenjectSceneLoader zenjectSceneLoader)
+		{
+			_zenjectSceneLoader = zenjectSceneLoader;
+		}
+		
 		public void BackToMenu()
 		{
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			_zenjectSceneLoader.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 	}
 }

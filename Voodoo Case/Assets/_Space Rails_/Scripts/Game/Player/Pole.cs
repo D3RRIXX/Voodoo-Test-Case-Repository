@@ -37,10 +37,5 @@ namespace SpaceRails.Game.Player
 		{
 			Length += count * _settings.SegmentLength;
 		}
-
-		private void OnCollisionEnter(Collision other)
-		{
-			Debug.Log($"Touched {other.gameObject.name}", other.gameObject);
-		}
 	}
 }

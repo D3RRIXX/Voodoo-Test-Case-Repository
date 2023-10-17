@@ -17,6 +17,7 @@ namespace SpaceRails.Game
 		public override void OnPickup(GameObject instigator)
 		{
 			_currencyManager.Coins.Value++;
+			
 			base.OnPickup(instigator);
 		}
 	}

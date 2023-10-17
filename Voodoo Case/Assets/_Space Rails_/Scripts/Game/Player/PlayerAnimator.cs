@@ -12,15 +12,17 @@ namespace SpaceRails.Game.Player
 		private PlayerMovement _playerMovement;
 		private Animator _animator;
 		
+		private static readonly Vector3 HANGING_OFFSET = new(0f, -0.65f, 0f);
 		private static readonly int HANGING = Animator.StringToHash("Hanging");
-		private static readonly Vector3 HANGING_OFFSET = new Vector3(0f, -0.65f, 0f);
 		private static readonly int START = Animator.StringToHash("Start");
 		private static readonly int DEFEAT = Animator.StringToHash("Defeat");
+		private static readonly int VICTORY = Animator.StringToHash("Victory");
 
 		[Inject]
 		private void Construct(GameStateManager gameStateManager)
 		{
 			gameStateManager.CurrentState
+			                .SkipLatestValueOnSubscribe()
 			                .Subscribe(OnGameStateChanged)
 			                .AddTo(this);
 		}
@@ -34,6 +36,9 @@ namespace SpaceRails.Game.Player
 					break;
 				case GameState.LevelFailed:
 					_animator.SetTrigger(DEFEAT);
+					break;
+				case GameState.LevelComplete:
+					_animator.SetTrigger(VICTORY);
 					break;
 			}
 		}

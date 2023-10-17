@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331fbb11b6f44919a10c951b142d32bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickupClip: {fileID: 8300000, guid: 111a9a1aeaf246b4cb75eb5dadf33822, type: 3}
 --- !u!1001 &9173602868225590764
 PrefabInstance:
   m_ObjectHideFlags: 0

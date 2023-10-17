@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8efbd5a0fe7247bf8ca039f38816d08f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pickupClip: {fileID: 8300000, guid: 34ece7e479732c8468acaea9411fc069, type: 3}
   _poleGain: 1
   _pole: {fileID: 5304447245720274340}
 --- !u!1001 &3180309173753682790

@@ -30,6 +30,7 @@ namespace SpaceRails.Game.Player
 		private void Construct(GameStateManager gameStateManager)
 		{
 			gameStateManager.CurrentState
+			                .SkipLatestValueOnSubscribe()
 			                .Subscribe(OnGameStateChanged)
 			                .AddTo(this);
 		}
@@ -73,7 +74,9 @@ namespace SpaceRails.Game.Player
 
 		private void StopRunning()
 		{
-			StopCoroutine(_activeMovementRoutine);
+			if (_activeMovementRoutine != null)
+				StopCoroutine(_activeMovementRoutine);
+			
 			_rb.velocity = Vector3.zero.WithNewY(_rb.velocity.y);
 		}
 
