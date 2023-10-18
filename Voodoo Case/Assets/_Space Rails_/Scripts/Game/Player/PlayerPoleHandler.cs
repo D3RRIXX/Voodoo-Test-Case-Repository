@@ -36,6 +36,7 @@ namespace SpaceRails.Game.Player
 			_signalBus = signalBus;
 
 			_gameStateManager.CurrentState
+			                 .SkipLatestValueOnSubscribe()
 			                 .First(x => x is GameState.LevelComplete)
 			                 .Subscribe(_ => DropPole())
 			                 .AddTo(this);
