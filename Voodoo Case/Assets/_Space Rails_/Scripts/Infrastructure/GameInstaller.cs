@@ -14,6 +14,7 @@ namespace SpaceRails.Infrastructure
 		
 		public override void InstallBindings()
 		{
+			Application.targetFrameRate = 60;
 			SignalBusInstaller.Install(Container);
 
 			Container.DeclareSignal<PlayerPoleLengthChangedSignal>();
